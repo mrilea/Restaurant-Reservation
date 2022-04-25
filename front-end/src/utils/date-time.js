@@ -4,7 +4,8 @@ const timeFormat = /\d\d:\d\d/;
 /**
  * Formats a Date object as YYYY-MM-DD.
  *
- * This function is *not* exported because the UI should generally avoid working directly with Date instance.
+ * This function is *not* exported because the UI should generally avoid working
+ * directly with Date instance.
  * You may export this function if you need it.
  *
  * @param date
@@ -19,7 +20,8 @@ function asDateString(date) {
 }
 
 /**
- * Format a date string in ISO-8601 format (which is what is returned from PostgreSQL) as YYYY-MM-DD.
+ * Format a date string in ISO-8601 format (which is what is returned from PostgreSQL)
+ * as YYYY-MM-DD.
  * @param dateString
  *  ISO-8601 date string
  * @returns {*}
@@ -30,7 +32,8 @@ export function formatAsDate(dateString) {
 }
 
 /**
- * Format a time string in HH:MM:SS format (which is what is returned from PostgreSQL) as HH:MM.
+ * Format a time string in HH:MM:SS format (which is what is returned from PostgreSQL)
+ * as HH:MM.
  * @param timeString
  *  HH:MM:SS time string
  * @returns {*}
@@ -57,7 +60,7 @@ export function today() {
  *  the date one day prior to currentDate, formatted as YYYY-MM-DD
  */
 export function previous(currentDate) {
-  let [ year, month, day ] = currentDate.split("-");
+  let [year, month, day] = currentDate.split("-");
   month -= 1;
   const date = new Date(year, month, day);
   date.setMonth(date.getMonth());
@@ -73,10 +76,48 @@ export function previous(currentDate) {
  *  the date one day after currentDate, formatted as YYYY-MM-DD
  */
 export function next(currentDate) {
-  let [ year, month, day ] = currentDate.split("-");
+  let [year, month, day] = currentDate.split("-");
   month -= 1;
   const date = new Date(year, month, day);
   date.setMonth(date.getMonth());
   date.setDate(date.getDate() + 1);
   return asDateString(date);
+}
+
+export function isNotOnTuesday(reservation_date, resTime, errors) {
+  const [year, month, day] = reservation_date.split("-");
+  const date = new Date(`${month} ${day}, ${year} ${resTime}`);
+  if (date.getDay() === 2) {
+    errors.push(
+      <li key="tuesday" className="alert alert-danger">
+        Restaurant is closed on Tuesdays.
+      </li>
+    );
+  }
+}
+
+export function isInTheFuture(reservation_date, resTime, errors) {
+  const [year, month, day] = reservation_date.split("-");
+  const date = new Date(`${month} ${day}, ${year} ${resTime}`);
+  const today = new Date();
+  if (date < today) {
+    errors.push(
+      <li key="past" className="alert alert-danger">
+        Reservation must be in the future.
+      </li>
+    );
+  }
+}
+
+export function restaurantNotOpen(resDate, resTime, errors) {
+  console.log(resTime);
+  const openTime = "10:30";
+  const lastRes = "21:30";
+  if (resTime < openTime || resTime > lastRes) {
+    errors.push(
+      <li key="closed" className="alert alert-danger">
+        Reservation must be between 10:30am and 9:30pm.
+      </li>
+    );
+  }
 }

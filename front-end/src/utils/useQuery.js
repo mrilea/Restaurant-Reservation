@@ -1,5 +1,6 @@
 /**
- * useQuery is a custom hook that makes use of the useLocation and the URL class to parse the query parameters.
+ * useQuery is a custom hook that makes use of the useLocation and 
+ * the URL class to parse the query parameters.
  *
  * @example
  *
