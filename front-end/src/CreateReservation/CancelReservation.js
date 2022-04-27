@@ -37,6 +37,7 @@ export default function CancelReservation({ reservation }) {
     <>
       <button
         type="button"
+        data-reservation-id-cancel={reservation.reservation_id}
         className="btn btn-danger btn-block p-1"
         id={reservation_id}
         onClick={() => handleCancel()}

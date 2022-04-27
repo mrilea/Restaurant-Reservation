@@ -12,7 +12,7 @@ export default function ReservationRow({ res }) {
         <td>{res.reservation_date}</td>
         <td>{res.reservation_time}</td>
         <td>{res.people}</td>
-        <td data-reservation-id-status={res.status}>{res.status}</td>
+        <td data-reservation-id-status={res.reservation_id}>{res.status}</td>
         <td>
           {res.status === "booked" ? (
             <>
@@ -23,8 +23,6 @@ export default function ReservationRow({ res }) {
                 >
                   Seat
                 </Link>
-                {/* </div>
-                <div> */}
                 <Link
                   to={`/reservations/${res.reservation_id}/edit`}
                   className="btn btn-warning btn-block p-1"

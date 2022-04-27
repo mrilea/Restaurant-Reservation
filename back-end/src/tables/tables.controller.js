@@ -39,7 +39,7 @@ function hasValidInputs(req, res, next) {
     invalidInputs = invalidInputs.concat(" table_name");
   }
 
-  if (typeof capacity !== "number" && capacity < 1) {
+  if (typeof capacity !== "number") {
     invalidInputs = invalidInputs.concat(" capacity");
   }
 
@@ -94,9 +94,9 @@ function tableHasSufficientCapacity(req, res, next) {
 }
 
 function tableIsNotOccupied(req, res, next) {
-  const { reseravtion_id } = res.locals.table;
+  const { reservation_id } = res.locals.table;
 
-  if (reseravtion_id) {
+  if (reservation_id) {
     return next({ status: 400, message: `Table is occupied.` });
   }
   next();
@@ -113,7 +113,7 @@ function tableIsOccupied(req, res, next) {
 function reservationStatusIsNotSeated(req, res, next) {
   const { status } = res.locals.reservation;
   if (status === "seated") {
-    return next({ status: 404, message: `Reservation status is ${status}.` });
+    return next({ status: 400, message: `Reservation status is ${status}.` });
   }
   next();
 }
@@ -153,13 +153,11 @@ async function create(req, res) {
 }
 
 async function update(req, res) {
-  console.log(res.locals.reservation, "update test", res.locals.resId)
   const updatedTable = {
     ...res.locals.table,
     reservation_id: res.locals.resId,
   };
   const data = await service.update(updatedTable);
-  console.log(data);
   res.json({ data });
 }
 

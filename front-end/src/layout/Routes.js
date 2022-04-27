@@ -9,6 +9,7 @@ import SeatReservation from "../CreateReservation/SeatReservation";
 import CreateTable from "../CreateTable/CreateTable";
 import EditReservation from "../CreateReservation/EditReservation";
 import Search from "../Search/Search";
+import useQuery from "../utils/useQuery";
 
 /**
  * Defines all the routes for the application.
@@ -18,16 +19,19 @@ import Search from "../Search/Search";
  * @returns {JSX.Element}
  */
 function Routes() {
+  const query = useQuery();
+  const date = query.get("date");
+
   return (
     <Switch>
       <Route exact={true} path="/">
-        <Redirect to={"/dashboard"} />
+        <Redirect to={`/dashboard?date=${date ? date : today()}`} />
       </Route>
       <Route exact={true} path="/reservations">
-        <Redirect to={"/dashboard"} />
+        <Redirect to={`/reservations?date=${date ? date : today()}`} />
       </Route>
       <Route path="/dashboard">
-        <Dashboard date={today()} />
+        <Dashboard date={date ? date : today()} />
       </Route>
       <Route path="/reservations/new">
         <CreateReservation date={today()} />

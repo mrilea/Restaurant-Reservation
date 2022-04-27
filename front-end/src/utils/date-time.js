@@ -110,7 +110,6 @@ export function isInTheFuture(reservation_date, resTime, errors) {
 }
 
 export function restaurantNotOpen(resDate, resTime, errors) {
-  console.log(resTime);
   const openTime = "10:30";
   const lastRes = "21:30";
   if (resTime < openTime || resTime > lastRes) {
