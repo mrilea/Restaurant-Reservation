@@ -4,4 +4,4 @@
 
 ### Home Page:
 
-![Dashboard](screenshots/Dashboard.png)
+![Dashboard](screenshots\Dashboard.png)
