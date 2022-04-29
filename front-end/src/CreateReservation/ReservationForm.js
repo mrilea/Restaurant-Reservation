@@ -26,6 +26,7 @@ export default function ReservationForm({
               placeholder="First Name"
               defaultValue={reservation.first_name}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="form-group mt-3">
@@ -36,6 +37,7 @@ export default function ReservationForm({
               placeholder="Last Name"
               defaultValue={reservation.last_name}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="form-group mt-3">
@@ -46,6 +48,7 @@ export default function ReservationForm({
               placeholder="Mobile Number"
               defaultValue={reservation.mobile_number}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="form-group row mt-3">
@@ -54,11 +57,13 @@ export default function ReservationForm({
             </label>
             <input
               name="reservation_date"
+              id="reservation_date"
               type="date"
               className="mr-3"
               placeholder="YYYY-MM-DD"
-              defaultValue={reservation.reservation_date}
+              value={reservation.reservation_date}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="form-group row mt-3">
@@ -72,6 +77,7 @@ export default function ReservationForm({
               placeholder="HH:MM:SS"
               defaultValue={reservation.reservation_time}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="form-group mt-3">

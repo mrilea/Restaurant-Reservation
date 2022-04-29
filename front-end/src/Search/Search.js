@@ -10,8 +10,7 @@ export default function Search() {
   const [searchConducted, setSearchConducted] = useState(false);
 
   const handleChange = (e) => {
-    let value = e.target.value;
-    setMobileNumber(value);
+    setMobileNumber(e.target.value);
   };
 
   const handleSubmit = (e) => {
